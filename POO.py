@@ -1,7 +1,18 @@
 class ContaBancaria:
     def __init__(self, titular, saldo):
         self.titular = titular
-        self.saldo = saldo
+        self._saldo = saldo
+
+    @property
+    def saldo(self):
+        return self._saldo
+
+    @saldo.setter
+    def saldo(self, novo_valor):
+        if novo_valor >= 0:
+            self._saldo = novo_valor
+        else:
+            print(f"Erro Saldo Indisponivel:{self._saldo}")
 
     def depositar(self, valor):
          self.saldo = valor + self.saldo
@@ -55,12 +66,9 @@ class ContaInvestimento(ContaBancaria):
          super().mostrar()
          print(self.taxa_imposto)
 
-
-
-conta1 = ContaBancaria("Luis", 100)
-conta2 = ContaInvestimento("Marcio", 50, 0.02)
-conta3 = ContaPoupanca("Roberto", 500, 1000)
-contas_cadastradas = [conta1, conta2, conta3]
-
-for contas in contas_cadastradas:
-    contas.mostrar()
+conta = ContaBancaria("Ana", 1000)
+print(conta.saldo)
+conta.saldo = 2000
+print(conta.saldo)
+conta.saldo = -50
+print(conta.saldo)
